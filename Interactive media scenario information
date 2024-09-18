@@ -1,10 +1,19 @@
 Interactive media scenario
+Unity prototype game
 
 
-Singleton
+Singleton:
+Timer
+Input Handler
 
-Command
+Command:
+Character customization
+Death replay
 
-Factory
+Factory:
+Enemy creation
+Environment creation
 
-Observer
+Observer:
+Player manager
+Enemy manager(monitor if enemy is dead or not)
