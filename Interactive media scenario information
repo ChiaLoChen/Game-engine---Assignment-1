@@ -3,17 +3,17 @@ Unity prototype game
 
 
 Singleton:
-Timer
-Input Handler
+Timer - Andrew
+Input Handler - Leo
 
 Command:
-Character customization
-Death replay
+Character customization - Andrew
+Death replay - Leo
 
 Factory:
-Enemy creation
-Environment creation
+Enemy creation - Andrew
+Environment creation - Leo
 
 Observer:
-Player manager
-Enemy manager(monitor if enemy is dead or not)
+Player manager(score, health, death) - Andrew
+Enemy manager(monitor if enemy is dead or not) - Leo
