@@ -15,3 +15,5 @@ Percentage of contribution for each team member, as this will affect the total g
 Explanation of what was done and how.
 
 Description of the game project being developed.
+
+Labyrinth game where the player has to traverse an auto generated labyrinth while evading / eliminating enemies to try to escape. 
