@@ -63,4 +63,10 @@ public class timer : singleton<timer>
                 break;
         }
     }
+
+
+    public float getTime()
+    {
+        return _CurrentTime;
+    }
 }
