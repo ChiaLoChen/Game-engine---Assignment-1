@@ -12,7 +12,7 @@ public class timer : singleton<timer>
    
 
     public TextMeshProUGUI _timerText;
-    int time;
+    float time;
 
     public enum timerType { timer, countdown };
     public timerType _timerType;
@@ -32,19 +32,19 @@ public class timer : singleton<timer>
             case timerType.timer:
                 
                 _CurrentTime = _baseTime += Time.deltaTime;
-                time = (int)_CurrentTime;
+                time = _CurrentTime;
 
                 break;
             case timerType.countdown:
 
                 _CurrentTime = _maxTime -= Time.deltaTime;
-                time = (int)_CurrentTime;
+                time = _CurrentTime;
 
                 break;
         }
         
 
-        _timerText.text = time.ToString();
+        _timerText.text = time.ToString("0.0");
     }
 
     void swapTimer(string type)
