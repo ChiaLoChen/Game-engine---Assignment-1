@@ -7,6 +7,7 @@ public class Generator : MonoBehaviour
 	public GameObject wall;
     public int width = 10;  // Default width, can be set in the Inspector
     public int height = 10; // Default height, can be set in the Inspector
+    public int gapsize = 2;
     private bool[,] visited;
 
     void Start()
@@ -95,7 +96,7 @@ private void CreateWalls()
 
     private void CreateElement(int x, int y, string type)
     {
-        Vector3 position = new Vector3(x, 0, y);
+        Vector3 position = new Vector3(x * gapsize, 0, y * gapsize);
         LabrynthCreation element = new Wall();
         element?.Create(position, wall);
     }

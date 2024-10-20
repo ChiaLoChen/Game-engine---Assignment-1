@@ -293,8 +293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wall: {fileID: 8104880935639508974, guid: 9ce5f755af9a1ec4ab0cf05d6b582e8f, type: 3}
-  width: 100
-  height: 100
+  width: 10
+  height: 10
+  gapsize: 7
 --- !u!4 &290315536
 Transform:
   m_ObjectHideFlags: 0
