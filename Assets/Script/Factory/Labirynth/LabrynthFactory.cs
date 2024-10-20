@@ -1,4 +1,4 @@
-/*public class LabrynthFactory
+public class LabrynthFactory
 {
     public static LabrynthCreation CreateLabyrinthElement(string elementType)
     {
@@ -13,4 +13,3 @@
         }
     }
 }
-*/

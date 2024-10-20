@@ -1,24 +1,52 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Generator : MonoBehaviour
 {
-    public GameObject wall;
-    public GameObject path;
-    private int width;
-    private int height;
+	public GameObject wall;
+    public int width = 10;  // Default width, can be set in the Inspector
+    public int height = 10; // Default height, can be set in the Inspector
     private bool[,] visited;
+
+    void Start()
+    {
+        GenerateLabyrinth(width, height);
+    }
 
     public void GenerateLabyrinth(int width, int height)
     {
+        if (width <= 0 || height <= 0)
+        {
+            Debug.LogError("Width and height must be greater than zero.");
+            return;
+        }
+
         this.width = width;
         this.height = height;
         visited = new bool[width, height];
-        
-        // Start generating from a random point
-        GeneratePath(0, 0);
-    }
 
+        // Start generating from a random point
+        int startX = Random.Range(0, width / 2) * 2;
+        int startY = Random.Range(0, height / 2) * 2;
+        GeneratePath(startX, startY);
+        
+        // Create walls around the labyrinth
+        CreateWalls();
+    }
+private void CreateWalls()
+{
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            if (!visited[i, j]) // If the cell was not visited
+            {
+                CreateElement(i, j, "Wall"); // Create a wall at this position
+            }
+        }
+    }
+}
     private void GeneratePath(int x, int y)
     {
         visited[x, y] = true;
@@ -68,7 +96,7 @@ public class Generator : MonoBehaviour
     private void CreateElement(int x, int y, string type)
     {
         Vector3 position = new Vector3(x, 0, y);
-        LabrynthCreation element = LabrynthCreation.Create(type);
+        LabrynthCreation element = new Wall();
         element?.Create(position, wall);
     }
 
@@ -83,4 +111,3 @@ public class Generator : MonoBehaviour
         }
     }
 }
-*/
