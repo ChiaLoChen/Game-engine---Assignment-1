@@ -69,4 +69,8 @@ public class timer : singleton<timer>
     {
         return _CurrentTime;
     }
+    void OnApplicationQuit()
+    {
+        Debug.Log("You have played: "+_CurrentTime+" seconds");
+    }
 }

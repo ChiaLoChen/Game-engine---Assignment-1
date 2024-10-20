@@ -5,6 +5,7 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
 	public GameObject wall;
+	public GameObject path;
     public int width = 10;  // Default width, can be set in the Inspector
     public int height = 10; // Default height, can be set in the Inspector
     public int gapsize = 2;
@@ -98,7 +99,13 @@ private void CreateWalls()
     {
         Vector3 position = new Vector3(x * gapsize, 0, y * gapsize);
         LabrynthCreation element = new Wall();
-        element?.Create(position, wall);
+        if (type == "Wall")
+        {
+            element?.Create(position, wall);
+        }
+        else if(type == "Path"){
+                element?.Create(position, path);
+        }
     }
 
     private void Shuffle(List<Vector2Int> directions)
