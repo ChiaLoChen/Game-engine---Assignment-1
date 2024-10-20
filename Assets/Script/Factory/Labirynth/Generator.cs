@@ -6,8 +6,8 @@ public class Generator : MonoBehaviour
 {
 	public GameObject wall;
 	public GameObject path;
-    public int width = 10;  // Default width, can be set in the Inspector
-    public int height = 10; // Default height, can be set in the Inspector
+    public int width = 10;
+    public int height = 10;
     public int gapsize = 2;
     private bool[,] visited;
 
@@ -18,92 +18,61 @@ public class Generator : MonoBehaviour
 
     public void GenerateLabyrinth(int width, int height)
     {
-        if (width <= 0 || height <= 0)
-        {
-            Debug.LogError("Width and height must be greater than zero.");
-            return;
-        }
+        if (width % 2 == 0) width++;
+        if (height % 2 == 0) height++;
 
         this.width = width;
         this.height = height;
         visited = new bool[width, height];
 
-        // Start generating from a random point
-        int startX = Random.Range(0, width / 2) * 2;
-        int startY = Random.Range(0, height / 2) * 2;
+        int startX = Random.Range(1, width / 2) * 2;
+        int startY = Random.Range(1, height / 2) * 2;
         GeneratePath(startX, startY);
-        
-        // Create walls around the labyrinth
-        CreateWalls();
     }
-private void CreateWalls()
-{
-    for (int i = 0; i < width; i++)
-    {
-        for (int j = 0; j < height; j++)
-        {
-            if (!visited[i, j]) // If the cell was not visited
-            {
-                CreateElement(i, j, "Wall"); // Create a wall at this position
-            }
-        }
-    }
-}
     private void GeneratePath(int x, int y)
     {
         visited[x, y] = true;
 
-        // Randomize directions
         List<Vector2Int> directions = new List<Vector2Int>
         {
-            new Vector2Int(1, 0), // Right
-            new Vector2Int(-1, 0), // Left
-            new Vector2Int(0, 1), // Up
-            new Vector2Int(0, -1) // Down
+            new Vector2Int(2, 0), // Right
+            new Vector2Int(-2, 0), // Left
+            new Vector2Int(0, 2), // Up
+            new Vector2Int(0, -2) // Down
         };
 
         Shuffle(directions);
 
         foreach (var direction in directions)
         {
-            int newX = x + direction.x * 2;
-            int newY = y + direction.y * 2;
+            int newX = x + direction.x;
+            int newY = y + direction.y;
 
-            if (IsInBounds(newX, newY) && !visited[newX, newY])
+            if (newX >= 0 && newX < width && newY >= 0 && newY < height && !visited[newX, newY])
             {
-                // Create a path between the current and new position
-                CreateElement(x + direction.x, y + direction.y, "Path");
+                CreateElement(x + direction.x / 2, y + direction.y / 2, "Wall");
                 GeneratePath(newX, newY);
             }
         }
 
-        // Create walls around the labyrinth
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                if (!visited[i, j])
-                {
-                    CreateElement(i, j, "Wall");
-                }
+                CreateElement(i, j, "Path");
             }
         }
     }
-
-    private bool IsInBounds(int x, int y)
-    {
-        return x >= 0 && x < width && y >= 0 && y < height;
-    }
-
     private void CreateElement(int x, int y, string type)
     {
-        Vector3 position = new Vector3(x * gapsize, 0, y * gapsize);
         LabrynthCreation element = new Wall();
         if (type == "Wall")
         {
+            Vector3 position = new Vector3(x * gapsize, 2, y * gapsize);
             element?.Create(position, wall);
         }
         else if(type == "Path"){
+            Vector3 position = new Vector3(x * gapsize, 0, y * gapsize);
                 element?.Create(position, path);
         }
     }

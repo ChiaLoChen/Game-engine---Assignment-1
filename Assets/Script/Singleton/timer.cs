@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System;
 
 public class timer : singleton<timer>
 {
@@ -71,6 +72,7 @@ public class timer : singleton<timer>
     }
     void OnApplicationQuit()
     {
-        Debug.Log("You have played: "+_CurrentTime+" seconds");
+        
+        Debug.Log("You have played: "+Math.Round(_CurrentTime, 2)+" seconds");
     }
 }
