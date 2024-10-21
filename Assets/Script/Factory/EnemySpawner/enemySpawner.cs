@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class enemySpawner : MonoBehaviour
+public class enemySpawner : Spawner
 {
     [SerializeField]
     List<Transform> _spawns = new List<Transform>();
@@ -13,6 +13,7 @@ public class enemySpawner : MonoBehaviour
     GameObject _enemyPrefab;
 
     int randomNum;
+
     
     void Start()
     {
@@ -56,12 +57,12 @@ public class enemySpawner : MonoBehaviour
     void spawnEnemyInPosition(List<Transform> tArray)
     {
         randomNum = Random.Range(0, _spawns.Count);
-        spawnEnemy(tArray[randomNum]);
+        spawn(tArray[randomNum].position);
     }
 
-    //spawns enemy at given transform
-    void spawnEnemy(Transform t)
+
+    public override GameObject createEntity()
     {
-        Instantiate(_enemyPrefab, t);
+        return _enemyPrefab;
     }
 }

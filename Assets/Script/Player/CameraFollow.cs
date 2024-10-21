@@ -3,12 +3,15 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public Transform player; // Reference to the player's transform
-    public Vector3 offset;   // Offset position of the camera from the player
-    public float mouseSensitivity = 2f; // Sensitivity for mouse movement
-    public float pitchLimit = 85f; // Limit for camera pitch rotation
+    public Vector3 offset = new Vector3 (0, 1, 0);   // Offset position of the camera from the player
+    public float mouseSensitivity = 20f; // Sensitivity for mouse movement
+    //public float pitchLimit = 85f; // Limit for camera pitch rotation
 
-    private float yaw; // Y-axis rotation
-    private float pitch; // X-axis rotation
+    private float X; // Y-axis rotation
+    private float Y; // X-axis rotation
+
+    float xRotation;
+    float yRotation;
 
     void Start()
     {
@@ -20,14 +23,19 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         // Get mouse input for rotation
-        yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-        pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
-        pitch = Mathf.Clamp(pitch, -pitchLimit, pitchLimit); // Clamp pitch rotation
+        X = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        Y = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        
 
-        // Update camera rotation
-        transform.eulerAngles = new Vector3(pitch, yaw, 0f);
+        xRotation -= Y;
+        yRotation += X;
 
-        // Update camera position
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        player.rotation = Quaternion.Euler(0, yRotation, 0);
+
         transform.position = player.position + offset;
     }
 }
