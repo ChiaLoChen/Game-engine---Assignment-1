@@ -48,7 +48,7 @@ public class timer : singleton<timer>
         _timerText.text = time.ToString("0.0");
     }
 
-    void swapTimer(string type)
+    public void swapTimer(string type)
     {
         switch (type)
         {

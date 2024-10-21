@@ -18,8 +18,6 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         // Initialize camera rotation
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     void Update()
