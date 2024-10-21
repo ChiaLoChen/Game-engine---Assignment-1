@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Generator : MonoBehaviour
 {
 	public GameObject wall;
 	public GameObject path;
+    public GameObject enemySpawn;
     public int width = 10;
     public int height = 10;
     public int gapsize = 2;
@@ -14,13 +14,16 @@ public class Generator : MonoBehaviour
     void Start()
     {
         GenerateLabyrinth(width, height);
+        
+        //create 10 enemySpawn and randomly distribute them through out the map
+        for (int i = 0; i < 10; i++)
+        {
+            CreateElement(Random.Range(1, height), Random.Range(1, width), "enemySpawn");
+        }
     }
 
     public void GenerateLabyrinth(int width, int height)
     {
-        if (width % 2 == 0) width++;
-        if (height % 2 == 0) height++;
-
         this.width = width;
         this.height = height;
         visited = new bool[width, height];
@@ -62,6 +65,7 @@ public class Generator : MonoBehaviour
                 CreateElement(i, j, "Path");
             }
         }
+
     }
     private void CreateElement(int x, int y, string type)
     {
@@ -74,6 +78,11 @@ public class Generator : MonoBehaviour
         else if(type == "Path"){
             Vector3 position = new Vector3(x * gapsize, 0, y * gapsize);
                 element?.Create(position, path);
+        }
+        else if(type == "enemySpawn")
+        {
+            Vector3 position = new Vector3(x * gapsize, 0, y * gapsize);
+            element?.Create(position, enemySpawn);
         }
     }
 

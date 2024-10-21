@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using System.Threading;
 
 public class enemySpawner : Spawner
 {
@@ -19,7 +20,12 @@ public class enemySpawner : Spawner
     {
 
         //check for children that are spawn locations then add them to the list
-
+        Thread.Sleep(1000);
+        GameObject[] enemySpawn = GameObject.FindGameObjectsWithTag("SpawnLocation");
+        for (int i = 0; i < enemySpawn.Length; i++)
+        {
+            _spawns.Add(enemySpawn[i].transform);
+        }
         for(int i = 0; i < this.gameObject.transform.childCount; i++)
         {
             Transform currentObject = this.gameObject.transform.GetChild(i);
