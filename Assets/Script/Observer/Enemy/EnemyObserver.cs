@@ -1,4 +1,4 @@
-public interface EnemyObserver : HealthObserver
+public interface EnemyObserver
 {
     void OnEnemyDeath();
 }

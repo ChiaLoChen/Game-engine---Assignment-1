@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ScoreUI : MonoBehaviour, EnemyObserver
+public class ScoreUI : singleton<ScoreUI>, EnemyObserver
 {
     int score = 0;
     public int maxScore = 3;

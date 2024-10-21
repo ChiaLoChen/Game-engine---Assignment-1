@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private List<EnemyObserver> observers = new List<EnemyObserver>();
+    // Start is called before the first frame updat
+    public void AddObserver(EnemyObserver observer)
     {
-        
+        observers.Add(observer);
     }
 
-    // Update is called once per frame
-    void Update()
+    // Method to remove an observer
+    public void RemoveObserver(EnemyObserver observer)
     {
-        
+        observers.Remove(observer);
     }
 }

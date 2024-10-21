@@ -12,7 +12,7 @@ public class EnemyMovement : Observer
     GameObject player;
     Rigidbody rb;
     public float speed = 2.5f;
-    public int distance = 10;
+    public int distance = 50;
     public int health = 5;
     public int maxScore = 3;
     public override void Notify(Subject subject)
@@ -59,18 +59,10 @@ public class EnemyMovement : Observer
     public void TakeDamage(int damage)
     {
         health -= damage;
-        NotifyHealthObservers();
         
         if (health <= 0)
         {
             Die();
-        }
-    }
-    private void NotifyHealthObservers()
-    {
-        foreach (var observer in observers)
-        {
-            observer.OnHealthChanged(health);
         }
     }
     void Die()
