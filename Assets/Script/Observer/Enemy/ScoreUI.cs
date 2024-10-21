@@ -16,14 +16,6 @@ public class ScoreUI : singleton<ScoreUI>, EnemyObserver
         scoreText = GameObject.Find("scoreText").GetComponent<TextMeshProUGUI>();
     }
 
-    public void Subscribe(GameObject enemyObject)
-    {
-        EnemyMovement enemy = enemyObject.GetComponent<EnemyMovement>();
-        if (enemy != null)
-        {
-            enemy.AddObserver(this);
-        }
-    }
     public void OnHealthChanged(int newHealth)
     {
         Debug.Log($"Enemy health changed: {newHealth}");

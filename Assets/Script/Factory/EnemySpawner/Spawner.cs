@@ -7,7 +7,6 @@ public abstract class Spawner : MonoBehaviour
     public void spawn(Vector3 pos, ScoreUI scoreManage)
     {
         GameObject newEntity = Instantiate(createEntity(), pos, Quaternion.identity);
-        scoreManage.Subscribe(newEntity);
     }
 
     public abstract GameObject createEntity();

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyMovement : Observer
 {
-    private List<EnemyObserver> observers = new List<EnemyObserver>();
     private ScoreUI scoreUI;
     bool _playerDead = false;
 
@@ -15,6 +14,8 @@ public class EnemyMovement : Observer
     public int distance = 50;
     public int health = 5;
     public int maxScore = 3;
+
+    bool run = false;
     public override void Notify(Subject subject)
     {
         _playerDead = subject.GetComponent<PlayerManager>().isDead;
@@ -35,24 +36,23 @@ public class EnemyMovement : Observer
         {
             if(Vector3.Magnitude(player.transform.position - transform.position) < distance)
             {
-                gameObject.transform.LookAt(player.transform.position);
-                rb.velocity = transform.forward * speed;
+                run = true;
+            }
+            else
+            {
+                StartCoroutine(runStop());
             }
         }
         if (health <= 0)
         {
             Die();
         }
-    }
-    public void AddObserver(EnemyObserver observer)
-    {
-        observers.Add(observer);
-    }
 
-    // Method to remove an observer
-    public void RemoveObserver(EnemyObserver observer)
-    {
-        observers.Remove(observer);
+        if (run)
+        {
+            gameObject.transform.LookAt(player.transform.position);
+            rb.AddForce(-transform.forward.normalized * speed * 10f * Time.deltaTime, ForceMode.Force);
+        }
     }
 
     // Method to take damage
@@ -67,14 +67,21 @@ public class EnemyMovement : Observer
     }
     void Die()
     {
-        NotifyDeathObservers();
+        scoreUI.OnEnemyDeath();
         Destroy(gameObject);
     }
-    private void NotifyDeathObservers()
+
+    private void OnCollisionEnter(Collision collision)
     {
-        foreach (var observer in observers)
+        if(collision.gameObject.tag == "Wall")
         {
-            observer.OnEnemyDeath();
+            rb.AddForce(transform.up.normalized * 5 * 200f, ForceMode.Force);
         }
+    }
+
+    IEnumerator runStop()
+    {
+        yield return new WaitForSeconds(5);
+        run = false;
     }
 }

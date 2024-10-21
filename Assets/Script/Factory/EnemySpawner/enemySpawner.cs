@@ -51,11 +51,7 @@ public class enemySpawner : Spawner
 
         double time = Math.Round(timer.Instance.getTime(), 2);
 
-        if(time % 10 == 0 && time != 0)
-        {
-            spawnEnemyInPosition(_spawns);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
+        if(time % 10 == 0)
         {
             spawnEnemyInPosition(_spawns);
         }
