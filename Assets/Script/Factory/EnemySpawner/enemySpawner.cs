@@ -12,14 +12,16 @@ public class enemySpawner : Spawner
 
     [SerializeField]
     GameObject _enemyPrefab;
-    private ScoreUI scoreManager;
+    ScoreUI scoreManager;
 
     int randomNum;
 
     
     void Start()
     {
-        scoreManager = GetComponent<ScoreUI>();
+        //scoreManager = GetComponent<ScoreUI>();
+
+        scoreManager = FindObjectOfType<ScoreUI>();
         //check for children that are spawn locations then add them to the list
         Thread.Sleep(1000);
         GameObject[] enemySpawn = GameObject.FindGameObjectsWithTag("SpawnLocation");
@@ -27,14 +29,14 @@ public class enemySpawner : Spawner
         {
             _spawns.Add(enemySpawn[i].transform);
         }
-        for(int i = 0; i < this.gameObject.transform.childCount; i++)
-        {
-            Transform currentObject = this.gameObject.transform.GetChild(i);
-            if (currentObject.tag == "SpawnLocation")
-            {
-                _spawns.Add(currentObject);
-            }
-        }
+        //for(int i = 0; i < this.gameObject.transform.childCount; i++)
+        //{
+        //    Transform currentObject = this.gameObject.transform.GetChild(i);
+        //    if (currentObject.tag == "SpawnLocation")
+        //    {
+        //        _spawns.Add(currentObject);
+        //    }
+        //}
 
     }
 
@@ -64,7 +66,8 @@ public class enemySpawner : Spawner
     void spawnEnemyInPosition(List<Transform> tArray)
     {
         randomNum = Random.Range(0, _spawns.Count);
-        spawn(tArray[randomNum].position);
+        spawn(tArray[randomNum].position, scoreManager);
+        Debug.Log("enemy spawned");
     }
 
 

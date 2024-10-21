@@ -9,19 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public Camera playerCamera;
 
     private CharacterController controller;
-    private Vector3 velocity;
+    private Vector3 velocity = new Vector3(0, 0, 0);
     public bool isGrounded;
 
     Rigidbody rb;
 
     GameObject _camera;
-
-    KeyCode forward = KeyCode.W;
-    KeyCode left = KeyCode.A;
-    KeyCode right = KeyCode.D;
-    KeyCode back = KeyCode.S;
-    KeyCode jump = KeyCode.Space;
-
 
     void Start()
     {
@@ -32,39 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
         
-
-        // DO NOT KEEP HEREEEEEEEEE!!!!!!!!!!!
-        if (Input.GetKey(forward))
-        {
-            //Debug.Log("pressing forward");
-            MoveForward();
-        }
-        else
-        {
-            //Debug.Log("Not pressing forward");
-        }
-
-        if (Input.GetKey(back))
-        {
-            MoveBackwards();
-        }
-
-        if (Input.GetKey(left))
-        {
-            MoveLeft();
-        }
-
-        if (Input.GetKey(right))
-        {
-            MoveRight();
-        }
-
-        if (Input.GetKey(jump))
-        {
-            Jump();
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -78,27 +39,38 @@ public class PlayerMovement : MonoBehaviour
     public void MoveForward()
     {
         //rb.velocity = transform.forward * moveSpeed;
-        //rb.AddForce(transform.forward.normalized * moveSpeed * 3f, ForceMode.Force);
+        rb.AddForce(transform.forward.normalized * moveSpeed * 10f * Time.deltaTime, ForceMode.Force);
 
-        transform.position += transform.forward * moveSpeed * Time.deltaTime;
+        //transform.position += transform.forward * moveSpeed * Time.deltaTime;  
     }
 
     public void MoveLeft()
     {
-        transform.position -= transform.right * moveSpeed * Time.deltaTime;
+        rb.AddForce(-transform.right.normalized * moveSpeed * 10f * Time.deltaTime, ForceMode.Force);
+
+        //transform.position -= transform.right * moveSpeed * Time.deltaTime;
 
     }
 
     public void MoveRight()
     {
-        transform.position += transform.right * moveSpeed * Time.deltaTime;
+        //transform.position += transform.right * moveSpeed * Time.deltaTime;
+
+        rb.AddForce(transform.right.normalized * moveSpeed * 10f * Time.deltaTime, ForceMode.Force);
+
 
     }
 
     public void MoveBackwards()
     {
-        transform.position -= transform.forward * moveSpeed * Time.deltaTime;
+        //transform.position -= transform.forward * moveSpeed * Time.deltaTime;
 
+        rb.AddForce(-transform.forward.normalized * moveSpeed * 10f * Time.deltaTime, ForceMode.Force);
+
+    }
+
+    public void Shoot()
+    {
 
     }
 
@@ -107,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             isGrounded = false;
-            rb.AddForce(transform.up * jumpHeight * 200f, ForceMode.Force);
+            rb.AddForce(transform.up.normalized * jumpHeight * 200f, ForceMode.Force);
         }
 
     }

@@ -24,7 +24,18 @@ public class PlayerManager : Subject
     // Update is called once per frame
     void Update()
     {
-        
+        if(health == 0)
+        {
+            onDie();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnemyBullet")
+        {
+            onHealthChange(health - 1);
+        }
     }
 
     public void onDie()

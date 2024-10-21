@@ -4,15 +4,10 @@ using UnityEngine;
 
 public abstract class Spawner : MonoBehaviour
 {
-    private ScoreUI scoreManager;
-    void Start()
-    {
-        scoreManager = GetComponent<ScoreUI>(); 
-    }
-    public void spawn(Vector3 pos)
+    public void spawn(Vector3 pos, ScoreUI scoreManage)
     {
         GameObject newEntity = Instantiate(createEntity(), pos, Quaternion.identity);
-        scoreManager.Subscribe(newEntity);
+        scoreManage.Subscribe(newEntity);
     }
 
     public abstract GameObject createEntity();
