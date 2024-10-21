@@ -15,11 +15,15 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
 
     GameObject _camera;
+    CameraFollow _cameraFollow;
 
     bool _isPaused = false;
 
     [SerializeField]
     private GameObject _pauseMenu;
+
+    [SerializeField]
+    GameObject bullet;
 
 
     void Start()
@@ -27,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         _camera = GameObject.FindGameObjectWithTag("MainCamera");
+        _cameraFollow = _camera.GetComponent<CameraFollow>();
     }
 
     void Update()
@@ -40,8 +45,10 @@ public class PlayerMovement : MonoBehaviour
 
                 Time.timeScale = 1;
                 _pauseMenu.SetActive(false);
+                _cameraFollow._isPaused = false;
 
                 _isPaused = false;
+                
             }
             else if (!_isPaused)
             {
@@ -50,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
                 Time.timeScale = 0;
                 _pauseMenu.SetActive(true);
+                _cameraFollow._isPaused = true;
 
                 _isPaused = true;
             }
@@ -99,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Shoot()
     {
-
+        Instantiate(bullet, transform.position, transform.rotation);
     }
 
     public void Jump()

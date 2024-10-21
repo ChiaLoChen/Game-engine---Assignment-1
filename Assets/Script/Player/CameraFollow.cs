@@ -13,6 +13,8 @@ public class CameraFollow : MonoBehaviour
     float xRotation;
     float yRotation;
 
+    public bool _isPaused = false;
+
     void Start()
     {
         // Initialize camera rotation
@@ -22,20 +24,24 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        // Get mouse input for rotation
-        X = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        Y = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        if (!_isPaused)
+        {
+            // Get mouse input for rotation
+            X = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+            Y = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+
+
+            xRotation -= Y;
+            yRotation += X;
+
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+
+            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            player.rotation = Quaternion.Euler(0, yRotation, 0);
+
+            transform.position = player.position + offset;
+        }
         
-
-        xRotation -= Y;
-        yRotation += X;
-
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        player.rotation = Quaternion.Euler(0, yRotation, 0);
-
-        transform.position = player.position + offset;
     }
 }

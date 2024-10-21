@@ -1,11 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ScoreUI : MonoBehaviour, EnemyObserver
 {
     int score = 0;
     public int maxScore = 3;
+
+    [SerializeField]
+    TextMeshProUGUI scoreText;
+
+    private void Start()
+    {
+        scoreText = GameObject.Find("scoreText").GetComponent<TextMeshProUGUI>();
+    }
+
     public void Subscribe(GameObject enemyObject)
     {
         EnemyMovement enemy = enemyObject.GetComponent<EnemyMovement>();
@@ -29,11 +39,13 @@ public class ScoreUI : MonoBehaviour, EnemyObserver
     void OnGUI()
     {
         //score = 
-        GUILayout.BeginArea(
-            new Rect(50, 50, 100, 2000));
-        GUILayout.BeginHorizontal("box");
-        GUILayout.Label("score: "+score);
-        GUILayout.EndHorizontal();
-        GUILayout.EndArea();
+        //GUILayout.BeginArea(
+        //    new Rect(50, 50, 100, 2000));
+        //GUILayout.BeginHorizontal("box");
+        //GUILayout.Label("score: "+score);
+        //GUILayout.EndHorizontal();
+        //GUILayout.EndArea();
+
+        scoreText.text = score.ToString();
     }
 }
