@@ -9,8 +9,7 @@ public class InputHandler : MonoBehaviour
 
     private Command _forward, _back, _left, _right, _jump, _shoot;
 
-    private KeyCode _kForward, _kBack, _kLeft, _kRight, _kJump;
-    private int _kShoot;
+    public KeyCode _kForward, _kBack, _kLeft, _kRight, _kJump, _kShoot;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +28,7 @@ public class InputHandler : MonoBehaviour
         _kLeft = KeyCode.A;
         _kRight = KeyCode.D;
         _kJump = KeyCode.Space;
-        _kShoot = 0;
+        _kShoot = KeyCode.Mouse0;
     }
 
     // Update is called once per frame
@@ -61,7 +60,7 @@ public class InputHandler : MonoBehaviour
             _jump.Execute();
         }
 
-        if (Input.GetMouseButton(_kShoot))
+        if (Input.GetKey(_kShoot))
         {
             _shoot.Execute();
         }
@@ -89,21 +88,15 @@ public class InputHandler : MonoBehaviour
         {
             _kJump = newKey;
         }
-        else
-        {
-            Debug.Log("Invalid key!");
-        }
-    }
-
-    public void UpdateMouseKey(int key, int newKey)
-    {
-        if(key == _kShoot)
+        else if(key == _kShoot)
         {
             _kShoot = newKey;
         }
         else
         {
-            Debug.Log("Invalid Key!");
+            Debug.Log("Invalid key!");
+            Debug.Log(key.ToString());
         }
     }
+
 }

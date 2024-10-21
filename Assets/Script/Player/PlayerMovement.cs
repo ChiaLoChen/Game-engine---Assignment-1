@@ -16,6 +16,12 @@ public class PlayerMovement : MonoBehaviour
 
     GameObject _camera;
 
+    bool _isPaused = false;
+
+    [SerializeField]
+    private GameObject _pauseMenu;
+
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -25,7 +31,29 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q))
+        {
+            if (_isPaused)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+
+                Time.timeScale = 1;
+                _pauseMenu.SetActive(false);
+
+                _isPaused = false;
+            }
+            else if (!_isPaused)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
+                Time.timeScale = 0;
+                _pauseMenu.SetActive(true);
+
+                _isPaused = true;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
