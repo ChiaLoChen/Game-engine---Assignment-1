@@ -7,12 +7,20 @@ public class timerSelection : MonoBehaviour
 {
     public enum timerModes {countdown, timetrial }
 
+    PlayerMovement _player;
+    CameraFollow _camera;
+    enemySpawner _spawner;
+
 
     private void Awake()
     {
         Time.timeScale = 0.0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        _player = FindObjectOfType<PlayerMovement>();
+        _camera = FindObjectOfType<CameraFollow>();
+        _spawner = FindObjectOfType<enemySpawner>();
     }
 
     // Update is called once per frame
@@ -35,5 +43,9 @@ public class timerSelection : MonoBehaviour
         Time.timeScale = 1.0f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        _camera.started = true;
+        _player.started = true;
+        _spawner.started = true;
     }
 }

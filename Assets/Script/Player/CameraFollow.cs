@@ -15,6 +15,8 @@ public class CameraFollow : MonoBehaviour
 
     public bool _isPaused = false;
 
+    public bool started = false;
+
     void Start()
     {
         // Initialize camera rotation
@@ -22,7 +24,7 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (!_isPaused)
+        if (!_isPaused && started)
         {
             // Get mouse input for rotation
             X = Input.GetAxisRaw("Mouse X") * mouseSensitivity;

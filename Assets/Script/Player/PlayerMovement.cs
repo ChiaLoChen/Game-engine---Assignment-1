@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     GameObject bullet;
 
+    public bool started = false;
+
 
     void Start()
     {
@@ -36,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q) && started)
         {
             if (_isPaused)
             {

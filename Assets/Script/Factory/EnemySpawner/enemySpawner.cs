@@ -16,6 +16,8 @@ public class enemySpawner : Spawner
 
     int randomNum;
 
+    public bool started = false;
+
     
     void Start()
     {
@@ -43,18 +45,21 @@ public class enemySpawner : Spawner
     void Update()
     {
 
-
-
-        //if current time is divisible by 10, summon an enemy
-
-        //Spawns like 5 enemies every batch, unintended but maybe keep
-
-        double time = Math.Round(timer.Instance.getTime(), 2);
-
-        if(time % 10 == 0)
+        if (started)
         {
-            spawnEnemyInPosition(_spawns);
+            //if current time is divisible by 10, summon an enemy
+
+            //Spawns like 5 enemies every batch, unintended but maybe keep
+
+            double time = Math.Round(timer.Instance.getTime(), 2);
+
+            if (time % 10 == 0)
+            {
+                spawnEnemyInPosition(_spawns);
+            }
         }
+
+        
     }
 
 
