@@ -16,9 +16,14 @@ public class EnemyMovement : Observer
     public int maxScore = 3;
 
     bool run = false;
+
+    Vector3 _playerPosition;
+
+    PlayerManager _playerManager;
     public override void Notify(Subject subject)
     {
         _playerDead = subject.GetComponent<PlayerManager>().isDead;
+        _playerPosition = subject.GetComponent<PlayerManager>().currentPosition;
     }
 
     // Start is called before the first frame update
@@ -27,6 +32,9 @@ public class EnemyMovement : Observer
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         scoreUI = FindObjectOfType<ScoreUI>();
+
+        _playerManager = FindObjectOfType<PlayerManager>();
+        _playerManager.attachObserver(this);
     }
 
     // Update is called once per frame
@@ -34,7 +42,7 @@ public class EnemyMovement : Observer
     {
         if (!_playerDead && player!= null)
         {
-            if(Vector3.Magnitude(player.transform.position - transform.position) < distance)
+            if(Vector3.Magnitude(_playerPosition - transform.position) < distance)
             {
                 run = true;
             }

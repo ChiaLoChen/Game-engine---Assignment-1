@@ -18,12 +18,15 @@ public class enemySpawner : Spawner
 
     public bool started = false;
 
+    PlayerManager _playerManager;
+
     
     void Start()
     {
         //scoreManager = GetComponent<ScoreUI>();
 
         scoreManager = FindObjectOfType<ScoreUI>();
+
         //check for children that are spawn locations then add them to the list
         Thread.Sleep(1000);
         GameObject[] enemySpawn = GameObject.FindGameObjectsWithTag("SpawnLocation");
@@ -68,7 +71,8 @@ public class enemySpawner : Spawner
     {
         randomNum = Random.Range(0, _spawns.Count);
         spawn(tArray[randomNum].position, scoreManager);
-        Debug.Log("enemy spawned");
+        
+        //Debug.Log("enemy spawned");
     }
 
 
