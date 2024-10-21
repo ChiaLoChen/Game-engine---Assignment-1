@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : Observer
 {
+    private List<EnemyObserver> observers = new List<EnemyObserver>();
     private ScoreUI scoreUI;
     bool _playerDead = false;
 
@@ -38,17 +39,50 @@ public class EnemyMovement : Observer
                 rb.velocity = transform.forward * speed;
             }
         }
-
         if (health <= 0)
         {
-            Death();
+            Die();
         }
     }
-
-    void Death()
+    public void AddObserver(EnemyObserver observer)
     {
-        scoreUI.AddScore(Random.Range(1, maxScore));
-        GetComponent<Collider>().enabled = false;
+        observers.Add(observer);
+    }
+
+    // Method to remove an observer
+    public void RemoveObserver(EnemyObserver observer)
+    {
+        observers.Remove(observer);
+    }
+
+    // Method to take damage
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        NotifyHealthObservers();
+        
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+    private void NotifyHealthObservers()
+    {
+        foreach (var observer in observers)
+        {
+            observer.OnHealthChanged(health);
+        }
+    }
+    void Die()
+    {
+        NotifyDeathObservers();
         Destroy(gameObject);
+    }
+    private void NotifyDeathObservers()
+    {
+        foreach (var observer in observers)
+        {
+            observer.OnEnemyDeath();
+        }
     }
 }

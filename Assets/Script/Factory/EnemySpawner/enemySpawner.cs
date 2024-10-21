@@ -12,13 +12,14 @@ public class enemySpawner : Spawner
 
     [SerializeField]
     GameObject _enemyPrefab;
+    private ScoreUI scoreManager;
 
     int randomNum;
 
     
     void Start()
     {
-
+        scoreManager = GetComponent<ScoreUI>();
         //check for children that are spawn locations then add them to the list
         Thread.Sleep(1000);
         GameObject[] enemySpawn = GameObject.FindGameObjectsWithTag("SpawnLocation");
