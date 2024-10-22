@@ -9,43 +9,35 @@ public class Generator : singleton<Generator>
     public int width = 10;
     public int height = 10;
     public int gapsize = 2;
-    private bool[,] visited;
+    public float wallProbability = 0.3f;
     private List<Vector2Int> directions;
 
     void Start()
     {
-        visited = new bool[width, height];
-        directions = new List<Vector2Int>
-        {
-            new Vector2Int(2, 0), // Right
-            new Vector2Int(-2, 0), // Left
-            new Vector2Int(0, 2), // Up
-            new Vector2Int(0, -2) // Down
-        };
-        GenerateLab(0, 0);
+        GenerateLab();
         
         //create 10 enemySpawn and randomly distribute them through out the map
         for (int i = 0; i < 10; i++)
         {
             CreateElement(Random.Range(1, height), Random.Range(1, width), "enemySpawn", Quaternion.identity, 0);
         }
-
+        //Create an outside barrier wall surrounding the entire maze no matter the width and height
         CreateOutsideWall();
     }
-    private void GenerateLab(int x, int y)
+    private void GenerateLab()
     {
-        visited[x, y] = true;
-        foreach (var direction in directions)
+        //randomly generate the wall on the map
+        for (int i = 0; i < width; i++)
         {
-            int newX = x + direction.x;
-            int newY = y + direction.y;
-
-            if (newX >= 0 && newX < width && newY >= 0 && newY < height && !visited[newX, newY])
+            for (int j = 0; j < height; j++)
             {
-                CreateElement(x + direction.x / 2, y + direction.y / 2, "Wall", Quaternion.identity, 0);
-                GenerateLab(newX, newY);
+                if (Random.value < wallProbability)
+                {
+                    CreateElement(i, j, "Wall", Quaternion.identity, 0);
+                }
             }
         }
+        //fully generate floor within the width and height
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -58,6 +50,7 @@ public class Generator : singleton<Generator>
     
     private void CreateElement(int x, int y, string type, Quaternion rotation, int closer)
     {
+        //create specific prefab based on the type
         LabrynthCreation element = new Wall();
         Vector3 position = new Vector3(x * gapsize, 0, y * gapsize);
         if (type == "Wall")
