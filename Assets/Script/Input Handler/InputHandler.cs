@@ -154,4 +154,11 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
+
+    public void Replay()
+    {
+        _isRecording = false;
+        _isReplaying = true;
+        _invoker.Replay();
+    }
 }
