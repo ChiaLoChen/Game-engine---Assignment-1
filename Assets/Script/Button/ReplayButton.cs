@@ -6,6 +6,7 @@ public class ReplayButton : MonoBehaviour
 {
     public void Replay()
     {
+        Debug.Log("Replay");
         InputHandler inputHandler = FindObjectOfType<InputHandler>();
         inputHandler.Replay();
     }
