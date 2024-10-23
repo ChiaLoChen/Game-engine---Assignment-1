@@ -134,10 +134,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
-    public void SetRecording(bool isRecording)
-    {
-        _isRecording = isRecording;
-    }
 }
 

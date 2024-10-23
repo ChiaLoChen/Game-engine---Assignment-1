@@ -140,6 +140,7 @@ public class InputHandler : MonoBehaviour
     {
         _isRecording = false;
         _isReplaying = true;
+        _player.gameObject.transform.position = new Vector3(50, 5, 50);
         _invoker.Replay();
     }
 }
