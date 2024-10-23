@@ -10,7 +10,7 @@ public class timerSelection : MonoBehaviour
     PlayerMovement _player;
     CameraFollow _camera;
     enemySpawner _spawner;
-
+    InputHandler _input;
 
     private void Awake()
     {
@@ -21,6 +21,7 @@ public class timerSelection : MonoBehaviour
         _player = FindObjectOfType<PlayerMovement>();
         _camera = FindObjectOfType<CameraFollow>();
         _spawner = FindObjectOfType<enemySpawner>();
+        _input = FindObjectOfType<InputHandler>();
     }
 
     // Update is called once per frame
@@ -47,5 +48,6 @@ public class timerSelection : MonoBehaviour
         _camera.started = true;
         _player.started = true;
         _spawner.started = true;
+        _input.isRecording();
     }
 }

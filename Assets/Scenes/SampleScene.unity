@@ -1403,7 +1403,7 @@ GameObject:
   - component: {fileID: 546197406}
   - component: {fileID: 546197407}
   m_Layer: 0
-  m_Name: Invoker
+  m_Name: RecordInputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

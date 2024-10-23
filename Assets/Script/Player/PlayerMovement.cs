@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     CameraFollow _cameraFollow;
 
     bool _isPaused = false;
+    
+    InputHandler _input;
 
     [SerializeField]
     private GameObject _pauseMenu;
@@ -34,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         _camera = GameObject.FindGameObjectWithTag("MainCamera");
         _cameraFollow = _camera.GetComponent<CameraFollow>();
+        _input = FindObjectOfType<InputHandler>();
     }
 
     void Update()
@@ -42,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_isPaused)
             {
+                _input.resumeRecording();
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
@@ -50,10 +54,11 @@ public class PlayerMovement : MonoBehaviour
                 _cameraFollow._isPaused = false;
 
                 _isPaused = false;
-                
+
             }
             else if (!_isPaused)
             {
+                _input.isNotRecording();
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
@@ -62,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
                 _cameraFollow._isPaused = true;
 
                 _isPaused = true;
+                
             }
         }
     }

@@ -12,21 +12,38 @@ class Invoker : MonoBehaviour
     private SortedList<float, Command> _recordedCommands =
         new SortedList<float, Command>();
 
-    public void ExecuteCommand(Command command)
+    public void RecordCommand(Command command)
     {
-        command.Execute();
         if (_isRecording)
-            _recordedCommands.Add(_recordingTime, command);
-        Debug.Log("Recorded Time: " + _recordingTime);
-        Debug.Log("Recorded Command: " + command);
+        {
+            float uniqueKey = _recordingTime;
+            while (_recordedCommands.ContainsKey(uniqueKey))
+            {
+                uniqueKey += 0.0001f;
+            }//solves clogging issues in recording the commands
+            _recordedCommands.Add(uniqueKey, command);
+        
+            Debug.Log("Recorded Time: " + uniqueKey);
+            Debug.Log("Recorded Command: " + command);
+        }
     }
+
 
     public void Record()
     {
         _recordingTime = 0.0f;
         _isRecording = true;
     }
+    
+    public void notRecord()
+    {
+        _isRecording = false;
+    }
 
+    public void resumeRecord()
+    {
+        _isRecording = true;
+    }
     public void Replay()
     {
         _replayTime = 0.0f;
