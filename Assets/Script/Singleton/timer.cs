@@ -18,6 +18,9 @@ public class timer : singleton<timer>
     public enum timerType { timer, countdown };
     public timerType _timerType;
 
+    public bool canCount = false;
+    bool ended = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,23 +32,39 @@ public class timer : singleton<timer>
     // Update is called once per frame
     void Update()
     {
-        switch(_timerType){
-            case timerType.timer:
-                
-                _CurrentTime = _baseTime += Time.deltaTime;
-                time = _CurrentTime;
+        if (canCount)
+        {
+            switch (_timerType)
+            {
+                case timerType.timer:
 
-                break;
-            case timerType.countdown:
+                    _CurrentTime = _baseTime += Time.deltaTime;
+                    time = _CurrentTime;
 
-                _CurrentTime = _maxTime -= Time.deltaTime;
-                time = _CurrentTime;
+                    break;
+                case timerType.countdown:
 
-                break;
+                    _CurrentTime = _maxTime -= Time.deltaTime;
+                    time = _CurrentTime;
+
+                    if(time <= 0)
+                    {
+                        ended = true;
+                    }
+
+                    break;
+            }
+
+            if (ended)
+            {
+                canCount = false;
+            }
         }
+        
         
 
         _timerText.text = time.ToString("0.0");
+
     }
 
     public void swapTimer(string type)

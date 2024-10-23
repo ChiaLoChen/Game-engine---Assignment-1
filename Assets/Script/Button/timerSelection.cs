@@ -48,6 +48,9 @@ public class timerSelection : MonoBehaviour
         _camera.started = true;
         _player.started = true;
         _spawner.started = true;
+
+        timer.Instance.canCount = true;
+
         _input.isRecording();
     }
 }
