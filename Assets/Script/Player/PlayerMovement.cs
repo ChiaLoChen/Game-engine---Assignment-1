@@ -28,7 +28,8 @@ public class PlayerMovement : MonoBehaviour
     GameObject bullet;
 
     public bool started = false;
-
+    
+    private bool _isRecording;
 
     void Start()
     {
@@ -36,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         _camera = GameObject.FindGameObjectWithTag("MainCamera");
         _cameraFollow = _camera.GetComponent<CameraFollow>();
-        _input = FindObjectOfType<InputHandler>();
+        _input = FindObjectOfType<InputHandler>();//Leo
     }
 
     void Update()
@@ -45,7 +46,15 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_isPaused)
             {
-                _input.resumeRecording();
+                if (_isRecording)
+                {
+                    _input.resumeRecording();
+                }//Leo
+                else if (!_isRecording)
+                {
+                    transform.position = new Vector3(50, 1, 50);
+                    _input.Replay();
+                }//Leo
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
@@ -126,6 +135,11 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(transform.up.normalized * jumpHeight * 200f, ForceMode.Force);
         }
 
+    }
+
+    public void SetRecording(bool isRecording)
+    {
+        _isRecording = isRecording;
     }
 }
 

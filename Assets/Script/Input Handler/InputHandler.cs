@@ -135,25 +135,6 @@ public class InputHandler : MonoBehaviour
         _isRecording = true;
         _invoker.resumeRecord();
     }
-    void OnGUI()
-    {
-        if (GUILayout.Button("Stop Recording"))
-        {
-            //_player.ResetPosition();
-            _isRecording = false;
-        }
-
-        if (!_isRecording)
-        {
-            if (GUILayout.Button("Start Replay"))
-            {
-                //_player.ResetPosition();
-                _isRecording = false;
-                _isReplaying = true;
-                _invoker.Replay();
-            }
-        }
-    }
 
     public void Replay()
     {
