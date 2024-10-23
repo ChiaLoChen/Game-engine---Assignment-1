@@ -37,10 +37,15 @@ public class buttonMapInvoker : MonoBehaviour
 
     public void replay()
     {
-        _buttonMapstack.Peek().Execute(_inputHandler, _newKeyCodeStack.Peek(), _keyCodeStack.Peek());
+        if (_buttonMapstack.Count != 0)
+        {
+            _buttonMapstack.Peek().Execute(_inputHandler, _newKeyCodeStack.Peek(), _keyCodeStack.Peek());
 
-        //_buttonMapstack.Pop();
-        //_keyCodeStack.Pop();
-        //_newKeyCodeStack.Pop();
+            _buttonMapstack.Pop();
+            _keyCodeStack.Pop();
+            _newKeyCodeStack.Pop();
+        }
+        
     }
+
 }

@@ -56,6 +56,7 @@ public class Button : MonoBehaviour
     {
 
         _buttonText.text = _forwardKey.ToString();
+        UpdateCurrentKey();
 
         if (canScan)
         {
