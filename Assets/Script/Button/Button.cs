@@ -11,7 +11,10 @@ public class Button : MonoBehaviour
 
     private KeyCode _newKey;
 
-    
+    setButtonMap _command;
+
+    [SerializeField]
+    buttonMapInvoker _buttonInvoker;
     enum buttonType  {forward, backwards, left, right, shoot, jump };
 
     [SerializeField]
@@ -30,6 +33,10 @@ public class Button : MonoBehaviour
         _inputHandler = FindObjectOfType<InputHandler>();
         _buttonText = GetComponentInChildren<TextMeshProUGUI>();
         _buttonText.text = _forwardKey.ToString();
+
+        _buttonInvoker = FindObjectOfType<buttonMapInvoker>();
+
+        _command = new setButtonMap();
     }
 
     // Update is called once per frame
@@ -41,12 +48,15 @@ public class Button : MonoBehaviour
     public void ScanKey()
     {
         UpdateCurrentKey();
-        _buttonText.text = _forwardKey.ToString();
+        //_buttonText.text = _forwardKey.ToString();
         canScan = true;
     }
 
     private void OnGUI()
     {
+
+        _buttonText.text = _forwardKey.ToString();
+
         if (canScan)
         {
             foreach(KeyCode _key in Enum.GetValues(typeof(KeyCode)))
@@ -54,9 +64,13 @@ public class Button : MonoBehaviour
                 if (Input.GetKey(_key) && _key != KeyCode.None)
                 {
                     Debug.Log(_key);
-                    _inputHandler.UpdateKeys(_forwardKey, _key);
+                    //_inputHandler.UpdateKeys(_forwardKey, _key);
+                    _command.Execute(_inputHandler, _forwardKey, _key);
+                    _buttonInvoker.addToStack(_command, _forwardKey, _key);
+
+
                     UpdateCurrentKey();
-                    _buttonText.text = _forwardKey.ToString();
+                    
                     canScan = false;
                 }
             }
