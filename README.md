@@ -1,6 +1,6 @@
 Names and roles of all team members
 
-Chia Lo Chen : 40%
+Chia Lo Chen : Implementation: 50% : Overall: 40%
 
 - Role: Programmer
 - Responsibilities:
@@ -17,7 +17,7 @@ Chia Lo Chen : 40%
     - Created project and Github
     - Created 2nd level
 
-Andrew : 60%
+Andrew : Implementation: 50% : Overall: 60%
 
 - Role: Programmer / Polish
 - Responsibilities:
