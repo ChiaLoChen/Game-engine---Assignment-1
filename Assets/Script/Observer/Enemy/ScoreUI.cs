@@ -5,7 +5,7 @@ using TMPro;
 
 public class ScoreUI : singleton<ScoreUI>, EnemyObserver
 {
-    int score = 0;
+    public int score = 0;
     public int maxScore = 3;
 
     [SerializeField]
@@ -25,7 +25,7 @@ public class ScoreUI : singleton<ScoreUI>, EnemyObserver
     public void OnEnemyDeath()
     {
         score += Random.Range(1, maxScore);
-        Debug.Log($"Enemy defeated! Score: {score}");
+        //Debug.Log($"Enemy defeated! Score: {score}");
         // Update the score UI here if needed
     }
     void OnGUI()

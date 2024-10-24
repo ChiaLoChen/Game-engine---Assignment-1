@@ -43,45 +43,49 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_isRecording && !_isReplaying)
+        if (timer.Instance.canCount)
         {
-            if (Input.GetKey(_kForward))
+            if (_isRecording && !_isReplaying)
             {
-                //Debug.Log("pressing forward");
-                _forward.Execute();
-                _invoker.RecordCommand(_forward);
-            }
+                if (Input.GetKey(_kForward))
+                {
+                    //Debug.Log("pressing forward");
+                    _forward.Execute();
+                    _invoker.RecordCommand(_forward);
+                }
 
-            if (Input.GetKey(_kBack))
-            {
-                _back.Execute();
-                _invoker.RecordCommand(_back);
-            }
+                if (Input.GetKey(_kBack))
+                {
+                    _back.Execute();
+                    _invoker.RecordCommand(_back);
+                }
 
-            if (Input.GetKey(_kLeft))
-            {
-                _left.Execute();
-                _invoker.RecordCommand(_left);
-            }
+                if (Input.GetKey(_kLeft))
+                {
+                    _left.Execute();
+                    _invoker.RecordCommand(_left);
+                }
 
-            if (Input.GetKey(_kRight))
-            {
-                _right.Execute();
-                _invoker.RecordCommand(_right);
-            }
+                if (Input.GetKey(_kRight))
+                {
+                    _right.Execute();
+                    _invoker.RecordCommand(_right);
+                }
 
-            if (Input.GetKey(_kJump))
-            {
-                _jump.Execute();
-                _invoker.RecordCommand(_jump);
-            }
+                if (Input.GetKey(_kJump))
+                {
+                    _jump.Execute();
+                    _invoker.RecordCommand(_jump);
+                }
 
-            if (Input.GetKey(_kShoot))
-            {
-                _shoot.Execute();
-                _invoker.RecordCommand(_shoot);
+                if (Input.GetKey(_kShoot))
+                {
+                    _shoot.Execute();
+                    _invoker.RecordCommand(_shoot);
+                }
             }
         }
+        
     }
 
     public void UpdateKeys(KeyCode key, KeyCode newKey)

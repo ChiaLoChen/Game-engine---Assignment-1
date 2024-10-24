@@ -56,7 +56,7 @@ public class enemySpawner : Spawner
 
             double time = Math.Round(timer.Instance.getTime(), 2);
 
-            if (time % 10 == 0)
+            if (time % 10 == 0 && timer.Instance.canCount)
             {
                 spawnEnemyInPosition(_spawns);
             }

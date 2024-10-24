@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class timer : singleton<timer>
 {
@@ -10,9 +11,16 @@ public class timer : singleton<timer>
     private float _CurrentTime;
     private float _baseTime = 0.0f;
     private float _maxTime = 100.00f;
-   
 
-    public TextMeshProUGUI _timerText;
+    [SerializeField]
+    GameObject winScreen;
+    [SerializeField]
+    GameObject loseScreen;
+
+    [SerializeField]
+    float _scoreGoal = 50f;
+
+    public TextMeshProUGUI _timerText = null;
     float time;
 
     public enum timerType { timer, countdown };
@@ -29,9 +37,29 @@ public class timer : singleton<timer>
         _timerText = GameObject.Find("timerText").GetComponent<TextMeshProUGUI>();
     }
 
+
     // Update is called once per frame
     void Update()
     {
+        if(_timerText == null)
+        {
+            
+            _timerText = null;
+
+            if (GameObject.Find("timerText"))
+            {
+                _timerText = GameObject.Find("timerText").GetComponent<TextMeshProUGUI>();
+            }
+
+        }
+        //Debug.Log(_timerText);
+
+        if(_timerText != null)
+        {
+            _timerText.text = time.ToString("0.0");
+
+        }
+
         if (canCount)
         {
             switch (_timerType)
@@ -50,6 +78,16 @@ public class timer : singleton<timer>
                     if(time <= 0)
                     {
                         ended = true;
+                        loseScreen.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                    }
+                    if (ScoreUI.Instance.score >= _scoreGoal)
+                    {
+                        ended = true;
+                        winScreen.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
                     }
 
                     break;
@@ -63,7 +101,6 @@ public class timer : singleton<timer>
         
         
 
-        _timerText.text = time.ToString("0.0");
 
     }
 

@@ -24,7 +24,7 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (!_isPaused && started)
+        if (!_isPaused && started && timer.Instance.canCount)
         {
             // Get mouse input for rotation
             X = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
