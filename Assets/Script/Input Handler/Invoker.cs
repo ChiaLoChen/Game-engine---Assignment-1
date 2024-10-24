@@ -8,11 +8,15 @@ class Invoker : MonoBehaviour
     private bool _isReplaying;
     private float _replayTime;
     private float _recordingTime;
-    private GameObject player;
+    private InputHandler input;
 
     private SortedList<float, Command> _recordedCommands =
         new SortedList<float, Command>();
 
+    void Start()
+    {
+        input = FindObjectOfType<InputHandler>();
+    }
     public void RecordCommand(Command command)
     {
         _recordedCommands.Add(_recordingTime, command);
@@ -59,8 +63,7 @@ class Invoker : MonoBehaviour
                 if (Mathf.Approximately(_replayTime, _recordedCommands.Keys[0]))
                 {
                     Debug.Log("Replay Time: " + _replayTime);
-                    Debug.Log("Replay Command: " +
-                              _recordedCommands.Values[0]);
+                    Debug.Log("Replay Command: " + _recordedCommands.Values[0]);
                     _recordedCommands.Values[0].Execute();
                     _recordedCommands.RemoveAt(0);
                 }
@@ -68,6 +71,7 @@ class Invoker : MonoBehaviour
             else
             {
                 _isReplaying = false;
+                input.endReplay();
             }
         }
     }

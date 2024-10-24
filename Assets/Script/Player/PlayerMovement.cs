@@ -47,12 +47,6 @@ public class PlayerMovement : MonoBehaviour
             if (_isPaused)
             {
                 _input.resumeRecording();
-                //Leo
-                //else if (!_isRecording)
-                //{
-                //    transform.position = new Vector3(50, 1, 50);
-                //    _input.Replay();
-                //}//Leo
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
