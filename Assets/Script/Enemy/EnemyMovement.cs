@@ -48,7 +48,7 @@ public class EnemyMovement : Observer
             }
             else
             {
-                StartCoroutine(runStop());
+                
             }
         }
         if (health <= 0)
@@ -87,9 +87,4 @@ public class EnemyMovement : Observer
         }
     }
 
-    IEnumerator runStop()
-    {
-        yield return new WaitForSeconds(5);
-        run = false;
-    }
 }
