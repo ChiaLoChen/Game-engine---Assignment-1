@@ -19,9 +19,13 @@ class Invoker : MonoBehaviour
     }
     public void RecordCommand(Command command)
     {
-        _recordedCommands.Add(_recordingTime, command);
-        Debug.Log("Recorded Time: " + _recordingTime);
-        Debug.Log("Recorded Command: " + command);
+        if (!_recordedCommands.ContainsKey(_recordingTime))
+        {
+            _recordedCommands.Add(_recordingTime, command);
+            Debug.Log("Recorded Time: " + _recordingTime);
+            Debug.Log("Recorded Command: " + command);
+        }
+        
     }
 
 
