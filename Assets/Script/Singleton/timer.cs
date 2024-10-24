@@ -69,6 +69,14 @@ public class timer : singleton<timer>
                     _CurrentTime = _baseTime += Time.deltaTime;
                     time = _CurrentTime;
 
+                    if (ScoreUI.Instance.score >= _scoreGoal)
+                    {
+                        ended = true;
+                        winScreen.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                    }
+
                     break;
                 case timerType.countdown:
 
