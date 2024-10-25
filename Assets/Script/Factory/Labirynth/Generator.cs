@@ -56,22 +56,22 @@ public class Generator : singleton<Generator>
         if (type == "Wall")
         {
             position.y = 2; 
-            Instantiate(wall, position, Quaternion.identity);
+            element.Create(position, wall, Quaternion.identity);
         }
         else if(type == "Floor")
         {
-            Instantiate(floor, position, Quaternion.identity);
+            element.Create(position, floor, Quaternion.identity);
         }
         else if(type == "enemySpawn")
         {
-            Instantiate(enemySpawn, position, Quaternion.identity);
+            element.Create(position, enemySpawn, Quaternion.identity);
         }
         else if (type == "OutsideWall")
         {
             position.y = 2;
             position.x += closer;
             position.z += closer;
-            Instantiate(wall, position, rotation);
+            element.Create(position, wall, rotation);
         }
     }
     private void CreateOutsideWall()

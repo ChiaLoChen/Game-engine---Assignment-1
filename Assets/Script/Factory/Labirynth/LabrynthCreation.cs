@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class LabrynthCreation
 {
-    public abstract void Create(Vector3 postion, GameObject gameobject);
+    public abstract void Create(Vector3 postion, GameObject gameobject, Quaternion rotation);
 }
