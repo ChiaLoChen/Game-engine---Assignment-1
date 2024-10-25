@@ -1,3 +1,10 @@
+Link to Video Report:
+
+https://www.youtube.com/watch?v=Rr-_8uCaCGE
+
+
+
+
 Names and roles of all team members
 
 Chia Lo Chen : Implementation: 50% : Overall: 40%
